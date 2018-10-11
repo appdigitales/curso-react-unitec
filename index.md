@@ -176,4 +176,11 @@ Ahora agrega el siguiente comando dentro del package.json
 "lint": "eslint **/*.{js,jsx} --quiet"
 ```
 
-ESLint tambien tiene un plugin para integrarlo con Visual Studio Code, lo cual te sugiero qu elo hagas.
+ESLint tambien tiene un plugin para integrarlo con Visual Studio Code, lo cual te sugiero que lo hagas. Al final, luego de implementar Prettier y ESLint, la seccion de scripts del package.json luce de la siguiente manera:
+
+```
+"scripts": {
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "lint": "eslint **/*.{js,jsx} --quiet"
+  },
+```
