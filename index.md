@@ -191,7 +191,7 @@ Ya que tenemos asegurado nuestro codigo limpio usando un linter y que podemos ej
 
 #### Webpack
 
-Webpack es una increible herramienta que salio hace unos 2 años al mercado y los desarrolladores con React lo han tomado como una de las herramientas principales debido a sus funcionalidades. En este curso solamente cubriremos los conceptos basicos de Webpack (debido a que es extenso) y nos concentraremos unicamente en 2 funcionalidades: compilacion de modulos y la habilidad de insertarle loaders.
+Webpack es una increible herramienta que salio hace unos 3 años al mercado y los desarrolladores con React lo han tomado como una de las herramientas principales debido a sus funcionalidades. En este curso solamente cubriremos los conceptos basicos de Webpack (debido a que es extenso) y nos concentraremos unicamente en 2 funcionalidades: compilacion de modulos y la habilidad de insertarle loaders.
 
 Mas adelante durante la clase usaremos `create-react-app` para crear nuestros proyectos de React, pero por ahora, vale la pena que primero conozcamos los fundamentos de React, Webpack y Babel para que sepamos que sucede detras del telon de `create-react-app`.
 
@@ -210,7 +210,7 @@ render(React.createElement(App), document.getElementById("root"));
 
 Seguido de eso, vamos a instalar Webpack como dependencia de desarrollo para nuestro proyecto, ejecuta el siguiente comando en la ruta principal de tu proyecto `npm install -D webpack webpack-cli`.
 
-Ahora, vamos a reestructurar los archivos en nuestro proyecto, vamos a crear una carpeta llamada `dist` en la ruta principal de nuestro proyecto, y moveremos nuestro archivo index.html de `./src/index.html` hacia `./dist/index.html`.
+Ahora, vamos a reestructurar los archivos en nuestro proyecto, vamos a crear una carpeta llamada `dist` en la ruta principal y moveremos nuestro archivo index.html de `./src/index.html` hacia `./dist/index.html`.
 
 ```
 dist
@@ -257,7 +257,15 @@ Para corroborar que todo salio bien, desde la carpeta `dist` de tu proyecto, abr
 
 Babel es una excelente herramienta, Babel transforma nuestro codigo de React el cual usa la sintaxis conocida como JSX (veremos mas adelante), en sintaxis de Javascript normal. Tambien transforma nuestro codigo de ES6 (version reciente de JS que incorpora bastantes cambios y mejorar al lenguaje) en Javascript que todos los navegadore puedan entender.
 
-Crear un nuevo archivo en la ruta de tu proyecto llamado `.babelrc`, y pega:
+A continuacion instala las siguientes librerias de babel desde tu terminal:
+
+```
+npm install -D babel-core babel-loader@7 babel-preset-env babel-preset-react
+```
+
+En esta ocasion estamos usando Babel6, para ello debemos usar babel-loader version 7. La version actual de Babel que recien salio hace un par de meses es Babel7, el cual usa por default babel-loade@8.
+
+Crea un nuevo archivo en la ruta de tu proyecto llamado `.babelrc`, y pega:
 
 ```
 {
@@ -274,6 +282,12 @@ Crear un nuevo archivo en la ruta de tu proyecto llamado `.babelrc`, y pega:
 }
 ```
 
-Babel maneja los conceptos de Plugins, cada una de las transformaciones de nuestro codigo vienen en forma de Plugins, para ello Babel usa el concepto de presets o plugins. En este caso le estamos indicando a babel que use el plugin para transformar codigo de react y de ES6 cuando le indicamos `env`.
+Babel maneja los conceptos de Plugins, cada una de las transformaciones de nuestro codigo vienen en forma de Plugins, para ello Babel usa el concepto de presets o plugins. En este caso le estamos indicando a babel que use el plugin para transformar codigo de react `react` y de ES6 cuando le indicamos `env`.
 
 Ademas, le estamos indicando a Babel que transforme nuestro codigo para que sea compatible con las ultimas 2 versiones de los navegadores donde se cargue nuestra aplicacion de React. Por ultimo le estamos indicando a Babel que No transforme los modulos.
+
+#### Webpack Loaders
+
+Loaders son utilidades que Webpack tomara codigo de entrada, transpilarlo, y generara una salida, tu puedes usars loaders para transpilar codigo como CfeeScript, TypeScript o PureScript. Los loaders de Webpack tambien pueden hacer otras funcionalidades como incluir CSS, imagenes y transformar SVGs. En este ejemplo solamente vamos a utilizar la transformacion de JS.
+
+Ejecuta el siguiente comando desde tu terminal `./node_modules/.bin/webpack --module-bind 'js=babel-loader' src/App.js`

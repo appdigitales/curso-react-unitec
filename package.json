@@ -10,6 +10,10 @@
   "author": "Cristian Echeverria",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "eslint": "^5.6.1",
     "eslint-config-prettier": "^3.1.0",
     "prettier": "^1.14.3",
