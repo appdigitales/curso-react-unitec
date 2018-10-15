@@ -252,3 +252,28 @@ Lo que acabamos de hacer es indicarle a webpack que nos haga un bundle(unificaci
 Imagen: [Ejemplo grafico de la utilidad de webpack](https://webpack.js.org/)
 
 Para corroborar que todo salio bien, desde la carpeta `dist` de tu proyecto, abre el archivo index.html en el navegador y veras renderizado nuestro unico componente hasta ahora.
+
+#### Babel
+
+Babel es una excelente herramienta, Babel transforma nuestro codigo de React el cual usa la sintaxis conocida como JSX (veremos mas adelante), en sintaxis de Javascript normal. Tambien transforma nuestro codigo de ES6 (version reciente de JS que incorpora bastantes cambios y mejorar al lenguaje) en Javascript que todos los navegadore puedan entender.
+
+Crear un nuevo archivo en la ruta de tu proyecto llamado `.babelrc`, y pega:
+
+```
+{
+  "presets": [
+    "react",
+    ["env", {
+      "targets": {
+        "browsers": "last 2 versions"
+      },
+      "loose": true,
+      "modules": false
+    }]
+  ]
+}
+```
+
+Babel maneja los conceptos de Plugins, cada una de las transformaciones de nuestro codigo vienen en forma de Plugins, para ello Babel usa el concepto de presets o plugins. En este caso le estamos indicando a babel que use el plugin para transformar codigo de react y de ES6 cuando le indicamos `env`.
+
+Ademas, le estamos indicando a Babel que transforme nuestro codigo para que sea compatible con las ultimas 2 versiones de los navegadores donde se cargue nuestra aplicacion de React. Por ultimo le estamos indicando a Babel que No transforme los modulos.
