@@ -184,3 +184,72 @@ ESLint tambien tiene un plugin para integrarlo con Visual Studio Code, lo cual t
     "lint": "eslint **/*.{js,jsx} --quiet"
   },
 ```
+
+#### Webpack y Babel
+
+Ya que tenemos asegurado nuestro codigo limpio usando un linter y que podemos ejecutar nuestros comandos cortesia de npm, vamos a trabajar en la compilacion/build de nuestro codigo. Para esto, vamos a utilizar Webpack y Babel.
+
+#### Webpack
+
+Weboack es una increible herramienta que salio hace unos 2 anios al mercado y los desarrolladores con React lo han tomado como una de las herramientas principales debido a sus funcionalidades. En este curso solamente cubriremos los conceptos basicos de Webpack (debido a que es extenso) y nos concentraremos unicamente en 2 funcionalidades: compilacion de moduols y la habilidad de insertarle loaders.
+
+Mas adelante durante la clase usaremos `create-react-app` para crear nuestros proyectos de React, pero por ahora, vale la pena que primero conozcamos los fundamentos de React, Webpack y Babel.
+
+Basicamente, el trabajo de Webpack es combinar todos nuestros archivos de Javascript donde residen nuestros componentes en un solo archivo e insertarlo en nuestro index.html.
+
+Lo siguietne que debemos hacer es agregar la libreria de React y ReactDOM como dependencias de nuestro proyecto, pare ello ejecuta el siguiente comando `npm install -D react react-dom`
+
+Dentro de nuestro componente `./src/App.js` vamos a escribir el siguiente codigo al inicio.
+
+```
+import React from "react";
+import { render } from "react-dom";
+```
+
+Una vez importadas las librerias principales de React y el metodo render de ReactDOM, vamos a actualizar nuestro codigo:
+
+```
+render(React.createElement(App), document.getElementById("root"));
+```
+
+Seguido de eso, vamos a instalar Webpack como dependencia de desarrollo para nuestro proyecto ejecuta el siguiente comando en la ruta principal de tu proyecto `npm install -D webpack webpack-cli`.
+
+Ahora, vamos a reestructurar los archivos en nuestro proyecto, vamos a crear una carpeta llamada `dist` en la ruta principal de nuestro proyecto, y moveremos nuestro archivo index.html de `./src/index.html` hacia `./dist/index.html`.
+
+```
+dist
+  index.html
+src
+  App.js
+```
+
+Luego, necesitamos modificar nuestro archivo `index.html` de la siguiente manera.
+
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./style.css">
+  <title>Github List</title>
+</head>
+
+<body>
+  <div id="root">not rendered</div>
+  <script src="main.js"></script>
+</body>
+
+</html>
+```
+
+Como ya tenemos importadas las librerias de Reac y ReactDOM, ya no ocupamos hacer referencia a ellas desde el index.html, de ahora en adelante, solamente haremos referencia a un nuevo archivo que todavia no tenemos `<script src="main.js"></script>`.
+
+Ahora si, vamos a ver Webpack en accion (finalmente xD), para ello desde nuestro terminal en la ruta de nuestro proyecto ejecutamos el siguiente comando
+`./node_modules/.bin/webpack src/App.js`
+
+Lo que acabamos de hacer es indicarle a webpack que nos haga un bundle(unificacion) de nuestro componente App.js y automaticamente nos crea el archivo `./dist/main.js`. Dentro de dicho archivo tenemos compilado nuestro codigo de React de nuestro componente App.js, mas adelante, cuando hagamos mas componentes de React para nuestro proyecto, crearemos mas archivos con extension `*.js`, es alli donde webpack entra en escena, creando un solo archivo para nuestros componentes junto con todas y cada una de las dependencias entre dichos archivos.
+
+Para corroborar que todo salio bien, desde la carpeta `dist` de tu proyecto, abre el archivo index.html en el navegador y veras renderizado nuestro unico componente hasta ahora.
