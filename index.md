@@ -249,6 +249,6 @@ Ahora si, vamos a ver Webpack en accion (finalmente xD), para ello desde nuestro
 Lo que acabamos de hacer es indicarle a webpack que nos haga un bundle(unificacion) de nuestro componente App.js y automaticamente nos crea el archivo `./dist/main.js`. Dentro de dicho archivo tenemos compilado nuestro codigo de React de nuestro componente App.js, mas adelante, cuando hagamos mas componentes de React para nuestro proyecto, crearemos mas archivos con extension `*.js`, es alli donde webpack entra en escena, creando un solo archivo para nuestros componentes junto con todas y cada una de las dependencias entre dichos archivos.
 
 ![Webpack](/img/webpack.png)
-Format: ![Ejemplo grafico de la utilidad de webpack](url)
+Imagen: [Ejemplo grafico de la utilidad de webpack](https://webpack.js.org/)
 
 Para corroborar que todo salio bien, desde la carpeta `dist` de tu proyecto, abre el archivo index.html en el navegador y veras renderizado nuestro unico componente hasta ahora.
