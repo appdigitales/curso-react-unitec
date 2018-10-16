@@ -249,7 +249,7 @@ Luego, necesitamos modificar nuestro archivo `index.html` de la siguiente manera
 
 Como ya tenemos importadas las librerias de React y ReactDOM, ya no ocupamos hacer referencia a ellas desde el index.html, de ahora en adelante, solamente haremos referencia a un nuevo archivo que todavia no tenemos `<script src="main.js"></script>`.
 
-Ahora si, vamos a ver Webpack en accion (finalmente xD), para ello desde nuestro terminal en la ruta de nuestro proyecto ejecutamos el siguiente comando
+Ahora si, vamos a ver Webpack en accion (finalmente :smile:), para ello desde nuestro terminal en la ruta de nuestro proyecto ejecutamos el siguiente comando
 `./node_modules/.bin/webpack src/App.js`
 
 Lo que acabamos de hacer es indicarle a webpack que nos haga un bundle(unificacion) de nuestro componente App.js y automaticamente nos crea el archivo `./dist/main.js`. Dentro de dicho archivo tenemos compilado nuestro codigo de React de nuestro componente App.js, mas adelante, cuando hagamos mas componentes de React para nuestro proyecto, crearemos mas archivos con extension `*.js`, es alli donde webpack entra en escena, creando un solo archivo para nuestros componentes junto con todas y cada una de las dependencias entre dichos archivos.
@@ -378,7 +378,7 @@ const App = () => {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-Ahora si, finalmente estamos usando JSX!!. Como veras, es una combinacion de HTML dentro de JS, ten cuidado en usar los signos `<App />` como parte del nombre del componente App que creamos, esta es la forma en JSX para llamar/referenciar nuestros componentes.
+Ahora si, finalmente estamos usando JSX!! :bowtie:. Como veras, es una combinacion de HTML dentro de JS, ten cuidado en usar los signos `<App />` como parte del nombre del componente App que creamos, esta es la forma en JSX para llamar/referenciar nuestros componentes.
 
 Vamos a crear un segundo componente para el Header de nuestro proyecto, para ello, crea un archivo llamado `./src/Header.js`
 
