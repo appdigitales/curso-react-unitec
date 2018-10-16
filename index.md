@@ -291,3 +291,52 @@ Ademas, le estamos indicando a Babel que transforme nuestro codigo para que sea 
 Loaders son utilidades que Webpack tomara codigo de entrada, transpilarlo, y generara una salida, tu puedes usars loaders para transpilar codigo como CfeeScript, TypeScript o PureScript. Los loaders de Webpack tambien pueden hacer otras funcionalidades como incluir CSS, imagenes y transformar SVGs. En este ejemplo solamente vamos a utilizar la transformacion de JS.
 
 Ejecuta el siguiente comando desde tu terminal `./node_modules/.bin/webpack --module-bind 'js=babel-loader' src/App.js`
+
+Ahora vamos a crear un archivo de configuracion para Webpack donde especificaremos ademas babel-loader. Para ello en la ruta del proyecto crea un archivo llamado `webpack.config.js`
+
+```
+const path = require("path");
+
+module.exports = {
+  context: __dirname,
+  entry: "./src/App.js",
+  devtool: "source-map",
+  output: {
+    path: path.join(__dirname, "dist"),
+    filename: "main.js"
+  },
+  resolve: {
+    extensions: [".js", ".jsx", ".json"]
+  },
+  stats: {
+    colors: true,
+    reasons: true,
+    chunks: false
+  },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        loader: "babel-loader"
+      }
+    ]
+  },
+  mode: "development"
+};
+```
+
+Le estamos indicando a Webpack cual es el archivo de entrada (entry) para que compile, este es el componente principal de nuestra aplicacion. Tambien le especificamos una ruta de salidad (output), asi como el nombre del archivo que contiene el build,`main.js`. Tambien le especificamos las extensiones que debe buscar (.js, .jsx, .json), seguido algunas estadisticas (stats) que se mostraran en la terminal, luego algunos loaders en este caso babel-loader, y para terminar, especificamos el mode en development/production.
+
+Ahora bien, si ejecutamos el comando `./node_modules/.bin/webpack` estaremos haciendo el build de nuestro proyecto. En ese caso, podemos agregar un comando en nuestro package.json para que sea mucho mas facil hacer el build. Agrega el siguiente comando en scripts `"build": "webpack"`. Al final, los scripts que tenemos hasta ahora son los siguientes:
+
+```
+...
+"scripts": {
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "lint": "eslint **/*.{js,jsx} --quiet",
+    "build": "webpack"
+  },
+...
+```
+
+Con dicho script de `build` creado, para ejecutarlo, solamente escribes el comando `npm run build` desde tu terminal.
