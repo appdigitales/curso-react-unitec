@@ -329,14 +329,19 @@ Le estamos indicando a Webpack cual es el archivo de entrada (entry) para que co
 
 Ahora bien, si ejecutamos el comando `./node_modules/.bin/webpack` estaremos haciendo el build de nuestro proyecto. En ese caso, podemos agregar un comando en nuestro package.json para que sea mucho mas facil hacer el build. Agrega el siguiente comando en scripts `"build": "webpack"`. Al final, los scripts que tenemos hasta ahora son los siguientes:
 
+Con dicho script de `build` creado, para ejecutarlo, solamente escribes el comando `npm run build` desde tu terminal.
+
+Ahora bien, cada vez que hagamos un cambio a nuestro codigo, tenemos que ejecutar el build, pero, podemos modificar ese comportamiento. Webpack acepta que le pasemos un comando asi `webpack --watch`, lo que hace watch es ejecutar el build y en cada cambio de codigo automaticamente volvera a hacer el build por nosotros.
+
+Podemos tomar ventaja de --watch, asi que agreguemos otro script a nuestro package.json asi `"watch": "webpack --watch"`
+
 ```
 ...
 "scripts": {
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint **/*.{js,jsx} --quiet",
-    "build": "webpack"
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
 ...
 ```
-
-Con dicho script de `build` creado, para ejecutarlo, solamente escribes el comando `npm run build` desde tu terminal.
