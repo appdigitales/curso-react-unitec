@@ -4,11 +4,11 @@ Este curso esta basado en varios cursos libres respecto a React, la mayoria de s
 
 ## Tabla de Contenido
 
-1. <a name="react">Solamente React</a>
-2. <a name="herramientas">Herramientas - npm, ESLint, Prettier, Webpack, Babel</a>
-3. <a name="jsx">JSX</a>
+1. [Solamente React](#react)
+2. [Herramientas - npm, ESLint, Prettier, Webpack, Babel](#herramientas)
+3. [JSX](#jsx)
 
-### [Solamente React](#react)
+### <a name="react">Solamente React</a>
 
 Vamos a iniciar el curso usando solamente la libreria de React sin ninguna otra herramienta como Babel, Webpack y demas utilidades.
 
@@ -109,7 +109,7 @@ Ahora hacemos referencia al nuevo archivo de Javascript dentro del index.html.
 </html>
 ```
 
-### [Herramientas - npm, ESLint, Prettier, Webpack, Babel](#herramientas)
+### <a name="herramientas">Herramientas - npm, ESLint, Prettier, Webpack, Babel</a>
 
 #### npm
 
@@ -359,7 +359,7 @@ Ahora bien, que pasa si ejecutamos el comando de ESLint `npm run lint`, pasa que
 /node_modules
 ```
 
-### [JSX](#jsx)
+### <a name="jsx">JSX</a>
 
 Hemos estado escribiendo React usando vanila Javascript y hoy en dia nadie hace eso. La mayoria hace uso de JSX el cual es esencialmente sintaxis similar a HTML/XML. Lo que JSX hace al final es tomar el HTML que escribimos para nuestros componentes y lo traduce al mismo codigo de vanila Javascript que estamos usando.
 
