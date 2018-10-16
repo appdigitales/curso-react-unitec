@@ -345,3 +345,10 @@ Podemos tomar ventaja de --watch, asi que agreguemos otro script a nuestro packa
   },
 ...
 ```
+
+Ahora bien, que pasa si ejecutamos el comando de ESLint `npm run lint`, pasa que ESLint nos mostrara todos los "errores" de nuestro archivo `main.js` (creado por webpack), y no queremos que ESLint se preocupe por dicho archivo, para ello, agregamos un archivo llamado `.eslintignore`, y agregamos:
+
+```
+/dist
+/node_modules
+```
