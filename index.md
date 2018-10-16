@@ -103,7 +103,7 @@ Ahora hacemos referencia al nuevo archivo de Javascript dentro del index.html.
 </html>
 ```
 
-### Herramientas - npm, ESLint, Prettier
+### Herramientas - npm, ESLint, Prettier, Webpack, Babel
 
 #### npm
 
@@ -351,4 +351,93 @@ Ahora bien, que pasa si ejecutamos el comando de ESLint `npm run lint`, pasa que
 ```
 /dist
 /node_modules
+```
+
+### JSX
+
+Hemos estado escribiendo React usando vanila Javascript y hoy en dia nadie hace eso. La mayoria hace uso de JSX el cual es esencialmente sintaxis similar a HTML/XML. Lo que JSX hace al final es tomar el HTML que escribimos para nuestros componentes y lo traduce al mismo codigo de vanila Javascript que estamos usando.
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const App = () => {
+  return (
+    <div>
+      <h1>Lista de proyectos de GitHub!</h1>
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+Ahora si, finalmente estamos usando JSX!!. Como veras, es una combinacion de HTML dentro de JS, ten cuidado en usar los signos `<App />` como parte del nombre del componente App que creamos, esta es la forma en JSX para llamar/referenciar nuestros componentes.
+
+Vamos a crear un segundo componente para el Header de nuestro proyecto, para ello, crea un archivo llamado `./src/Header.js`
+
+```
+import React from 'react';
+
+const Header = () => {
+  return (
+    <div className="header">
+      <p className="logo">GitHub Demo Project</p>
+    </div>
+  );
+};
+
+export default Header;
+```
+
+Hemos agregado un segundo componente, en este caso un Componente Funcional, que simplemente retorna un div con una etiqueta de parrafo, veras tambien que para definir estilos mediante clases en JSX en lugar de class, se utiliza `className` en formato de camelCase, el cambio es debido a que `class` en JS es una palabra reservada. Al final, se exporta el componente mediante `export default Header`, esta es la forma de exportar componentes, variables, funciones via ES6.
+
+Ahora, dentro de nuestro `./src/App.js` agregamos lo siguiente:
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Header from './Header.js'; // Importamos componente Header
+
+const App = () => {
+  return (
+    <div>
+      <Header />
+      <div className="container">
+        <h1>Lista de proyectos de GitHub!</h1>
+      </div>
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+Hemos importado el componente Header y hemos agregado un nuevo div con la clase `container`. Para los estilos usaremos una libreria ligera y bastante util conocida como [skeleton](http://getskeleton.com/), dicha librerias no se considera un framework de CSS, es mas bien una utileria, donde trae su propio grid system y demas estilos que sirven como base para nuestro proyecto. En ese caso, descarga la libreria, copia y pega los estilos dentro de nuestro archivo `./dist/style.css`.
+
+Al final agrega los siguientes estilos a `style.css`, son para el `.header` y `.logo`
+
+```
+.header {
+  overflow: hidden;
+  background-color: #373636;
+  padding: 20px 10px;
+  box-shadow: 0 0 40px 0 #000000;
+}
+
+.header p {
+  float: left;
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  padding-left: 70px;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.header p.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
 ```
