@@ -515,6 +515,7 @@ body {
 ```
 
 Super!. Asi como dice el titulo de esta seccion, llego el momento de nuestro primer Challenge. El objetivo en este challenge sera terminar de configurar nuestra landing page, la cual debe quedar de la siguiente manera:
+
 ![Landin Page](/img/landing-page.png)
 Imagen: Asi debe quedar nuestra landing page
 
@@ -524,3 +525,4 @@ Imagen: Asi debe quedar nuestra landing page
 2. Dicho componente esta compuesto por un Input de HTML
 3. Deben lograr que luzca lo mas parecido a la imagen, con esquinas redondeadas, color de fondo, etc..
 4. Para el icono (cheque), deben usar FontAwesome.
+5. Debe ser Responsive
