@@ -203,7 +203,7 @@ Mas adelante durante la clase usaremos `create-react-app` para crear nuestros pr
 
 Basicamente, **el trabajo de Webpack es combinar todos nuestros archivos de Javascript donde residen nuestros componentes en un solo archivo.**
 
-Lo siguiente que debemos hacer es agregar la libreria de React y ReactDOM como dependencias de nuestro proyecto, pare ello ejecuta el siguiente comando `npm install -D react react-dom`
+Lo siguiente que debemos hacer es agregar la libreria de React y ReactDOM como dependencias de nuestro proyecto, pare ello ejecuta el siguiente comando `npm install -S react react-dom`
 
 Dentro de nuestro componente `./src/App.js` vamos a escribir el siguiente codigo al inicio.
 
@@ -446,4 +446,55 @@ Al final agrega los siguientes estilos a `style.css`, son para el `.header` y `.
   font-size: 25px;
   font-weight: bold;
 }
+```
+
+Bien, lo siguiente que haremos sera ejecutar ESLint automaticamente cuando nuestro codigo se compila por parte de Webpack, asi, ESLint nos hara saber cuando existan errores en nuestro codigo.
+
+Asi como usamos babel-loader para transformar nuestro codigo, vamos a usar el eslint-loader para ejecutar el linter por nosotros, eslint-loader es similar a babel-loader, excepto que No transformara nuestro codigo, solamente nos dara la advertencia de errores. A continuacion, instalemos eslint-loader.
+
+```
+npm install -D eslint-loader babel-eslint eslint-plugin-prettier eslint-plugin-react eslint-config-react
+```
+
+Dentro de nuestro archivo de configuracion de webpack agregamos:
+
+```
+// dentro de rules, antes de babel-loader
+{
+  enforce: "pre",
+  test: /\.jsx?$/,
+  loader: "eslint-loader",
+  exclude: /node_modules/
+}
+```
+
+Luego dentro de nuestro archivo de cofiguracion de ESLint `.eslintrc.json` agregamos la siguiente extension:
+
+```
+"extends": [
+  ...
+    "plugin:react/recommended"
+  ],
+```
+
+Ahora vamos a cambiarnos al servidor web local de Webpack, el cual nos hace las cosas mucho mas sencillas. El servidor web de Webpack acelera nuestro proceso de desarrollo permitiendonos correr un servidor local y servir el contenido desde el servidor web. Guarda todo en memoria y acelera la velocidad del rebuild. Agrega la siguiente libreria:
+
+```
+npm install -D webpack-dev-server
+```
+
+Ahora, dentro de `webpack.config.js`, agrega:
+
+```
+...
+// agregalo como propiedad antes de module
+devServer: {
+  publicPath: '/dist/'
+},
+```
+
+Agregamos el siguiente script al package.json, de esta forma levantaremos el servidor de desarrollo en el puerto `localhost:8080` y se ejecutara la compilacion/build del proyecto.
+
+```
+"dev": "webpack-dev-server"
 ```
