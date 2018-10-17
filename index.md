@@ -7,6 +7,7 @@ Este curso esta basado en varios cursos libres respecto a React, la mayoria de s
 1. [Solamente React](#react)
 2. [Herramientas - npm, ESLint, Prettier, Webpack, Babel](#herramientas)
 3. [JSX](#jsx)
+4. [Challenge: Mas React](#challenge1)
 
 ### <a name="react">Solamente React</a>
 
@@ -489,7 +490,9 @@ Ahora, dentro de `webpack.config.js`, agrega:
 ...
 // agregalo como propiedad antes de module
 devServer: {
-  publicPath: '/dist/'
+  contentBase: path.join(__dirname, 'dist'),
+  compress: true,
+  port: 9000
 },
 ```
 
@@ -498,3 +501,26 @@ Agregamos el siguiente script al package.json, de esta forma levantaremos el ser
 ```
 "dev": "webpack-dev-server"
 ```
+
+### <a name="challenge1">Challenge: Mas React</a>
+
+Bien, vamos a continuar creando el landing page de nuestro proyecto, vamos a editar los estilos para eliminar los margenes que se muestran al rededor del componente Header.
+
+```
+// dentro de nuestro archivo style.css
+body {
+  ...
+  margin: 0;
+}
+```
+
+Super!. Asi como dice el titulo de esta seccion, llego el momento de nuestro primer Challenge. El objetivo en este challenge sera terminar de configurar nuestra landing page, la cual debe quedar de la siguiente manera:
+![Landin Page](/img/landing-page.png)
+Imagen: Asi debe quedar nuestra landing page
+
+**Instrucciones** para resolver este challenge:
+
+1. Deben crear un componente nuevo llamado `Search`
+2. Dicho componente esta compuesto por un Input de HTML
+3. Deben lograr que luzca lo mas parecido a la imagen, con esquinas redondeadas, color de fondo, etc..
+4. Para el icono (cheque), deben usar FontAwesome.

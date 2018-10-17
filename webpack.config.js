@@ -17,7 +17,9 @@ module.exports = {
     chunks: false
   },
   devServer: {
-    publicPath: '/dist/'
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 9000
   },
   module: {
     rules: [
