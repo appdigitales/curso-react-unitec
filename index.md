@@ -526,3 +526,100 @@ Imagen: Asi debe quedar nuestra landing page
 3. Deben lograr que luzca lo mas parecido a la imagen, con esquinas redondeadas, color de fondo, etc..
 4. Para el icono (cheque), deben usar FontAwesome.
 5. Debe ser Responsive
+
+### <a name="react-router">React Router</a>
+
+React Router es una excelenten herramienta para el manejo de las rutas en nuestr aplicacion, vamos a utilizar la version mas reciente de dicha libreria, la cual ha tenido bastantes cambios y actualizaciones desde la primera version hasta la version 4, la mas estable hasta ahora.
+
+```
+npm install -S react-router react-router-dom
+```
+
+Vamos a crear el componente `Search.js` del challenge anterior, para ello, creamos el archivo Search.js en el src del proyecto
+
+```
+import React from 'react';
+import Header from './Header.js';
+
+const Search = () => {
+  return (
+    <div>
+      <Header />
+      <div className="container">
+        <section className="search six offset-by-three columns">
+          <form>
+            <button type="submit">
+              <span className="fa fa-check-circle fa-3x" />
+            </button>
+            <input
+              className="u-full-width"
+              type="text"
+              name="username"
+              placeholder="Enter Github Username"
+            />
+          </form>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default Search;
+```
+
+Como habran notado, hemos incluido aca el llamado al componente `<Header />`, este sera uno de los cambios que haremos a la estructura de nuestra aplicacion.
+
+Ahora agregamos un par de clases a nuestro archivo `style.css`
+
+```
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css');
+
+/* Search component
+_________________________________________________ */
+.search {
+  position: relative;
+  top: 50%;
+  margin-top: 200px;
+}
+.search {
+  display: inline-block;
+}
+
+.search button {
+  position: absolute;
+  top: 7px;
+  left: 10px;
+  color: green;
+  background: transparent;
+  border: none;
+}
+
+.search button {
+  left: auto;
+  right: 10px;
+  background: transparent;
+}
+```
+
+Hemos importado FontAwesome en nuestro archivo de hoja de estilos mediante la URL de un CDN (Content Delivery Network), esta es una de las tantas formas de importar frameworks de CSS en React.
+
+Seguido, importaremos el componente a nuestro App.js y utilizaremos `BrowserRouter` junto con `Route` de React Router.
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Search from './Search';
+import { BrowserRouter, Route } from 'react-router-dom';
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Route exact path="/" component={Search} />
+    </BrowserRouter>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+Hemos importado `BrowserRouter`, esto debido a que nos permite usar el historial de navegacion del API de HTML5, en lugar de `HashRouter`. Y `Route` lo utilizamos para crear las rutas de nuestro proyecto, en este caso, para la ruta principal le agregamos la propiedad `exact`, esto para especificar que la ruta principal de nuestra aplicacion en este caso el `path='/'` debe ser exacto, si no lo agregamos podemos confundir a React Router, ya que por ejemplo; podria tomar las subsecuentes rutas que lleven el `/` como rutas principales. El prop `component={Search}` es donde le indicamos que componente carga al usuario ingresar dicha ruta.
