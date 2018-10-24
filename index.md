@@ -8,6 +8,7 @@ Este curso esta basado en varios cursos libres respecto a React, la mayoria de s
 2. [Herramientas - npm, ESLint, Prettier, Webpack, Babel](#herramientas)
 3. [JSX](#jsx)
 4. [Challenge: Mas React](#challenge1)
+5. [React Router](#react-router)
 
 ### <a name="react">Solamente React</a>
 
@@ -529,7 +530,7 @@ Imagen: Asi debe quedar nuestra landing page
 
 ### <a name="react-router">React Router</a>
 
-React Router es una excelenten herramienta para el manejo de las rutas en nuestr aplicacion, vamos a utilizar la version mas reciente de dicha libreria, la cual ha tenido bastantes cambios y actualizaciones desde la primera version hasta la version 4, la mas estable hasta ahora.
+React Router es una excelente herramienta para el manejo de las rutas en nuestra aplicacion, vamos a utilizar la version mas reciente de dicha libreria, la cual ha tenido bastantes cambios y actualizaciones desde la primera version hasta la version 4, la mas estable hasta ahora.
 
 ```
 npm install -S react-router react-router-dom
@@ -623,3 +624,53 @@ ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 Hemos importado `BrowserRouter`, esto debido a que nos permite usar el historial de navegacion del API de HTML5, en lugar de `HashRouter`. Y `Route` lo utilizamos para crear las rutas de nuestro proyecto, en este caso, para la ruta principal le agregamos la propiedad `exact`, esto para especificar que la ruta principal de nuestra aplicacion en este caso el `path='/'` debe ser exacto, si no lo agregamos podemos confundir a React Router, ya que por ejemplo; podria tomar las subsecuentes rutas que lleven el `/` como rutas principales. El prop `component={Search}` es donde le indicamos que componente carga al usuario ingresar dicha ruta.
+
+Lo siguiente que haremos es agregarle funcionalidad al formulario de Search.js, usaremos la propiedad `onSubmit` para indicarle al formulario que hacer con los datos ingresados en el `<input type="text" />`
+
+```
+import React from 'react';
+import Header from './Header.js';
+
+const Search = () => {
+  const handleSubmit = e => {
+    e.preventDefault();
+    // eslint-disable-next-line
+    console.log(e.target.username.value);
+  };
+
+  return (
+    <div>
+      <Header />
+      <div className="container">
+        <section className="search six offset-by-three columns">
+          <form onSubmit={handleSubmit}>
+            <button type="submit">
+              <span className="fa fa-check-circle fa-3x" />
+            </button>
+            <input
+              className="u-full-width"
+              type="text"
+              name="username"
+              placeholder="Enter Github Username"
+            />
+          </form>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default Search;
+```
+
+Aparte, hemos creado una funcion `handleSubmit` para tomar los valores del Input e imprimirlos en este caso en la consola del navegador.
+
+```
+  const handleSubmit = e => {
+    e.preventDefault();
+    // eslint-disable-next-line
+    console.log(e.target.username.value);
+  };
+```
+
+La linea `e.preventDefault()` se utiliza para evitar que el navegador intente llamar a un servidor al momento de darle submit al formulario. La siguiente linea `// eslint-disable-next-line` es para decirle a ESLint que ignore la line adel console.log(e.target.username.value), debido a que No es permitido console.log al momento de hacer deploy a produccion, claro, esto es solamente con motivos de prueba, para asegurarnos que recibimos los datos que se ingresan en el Input.
