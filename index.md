@@ -9,7 +9,8 @@ Este curso esta basado en varios cursos libres respecto a React, la mayoria de s
 3. [JSX](#jsx)
 4. [Challenge: Mas React](#challenge1)
 5. [React Router](#react-router)
-6. [PropTypes](#prop-types)
+6. [Props](#props)
+7. [PropTypes](#prop-types)
 
 ### <a name="react">Solamente React</a>
 
