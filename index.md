@@ -9,6 +9,7 @@ Este curso esta basado en varios cursos libres respecto a React, la mayoria de s
 3. [JSX](#jsx)
 4. [Challenge: Mas React](#challenge1)
 5. [React Router](#react-router)
+6. [PropTypes](#prop-types)
 
 ### <a name="react">Solamente React</a>
 
@@ -628,6 +629,7 @@ Hemos importado `BrowserRouter`, esto debido a que nos permite usar el historial
 Lo siguiente que haremos es agregarle funcionalidad al formulario de Search.js, usaremos la propiedad `onSubmit` para indicarle al formulario que hacer con los datos ingresados en el `<input type="text" />`
 
 ```
+// ./src/Search.js
 import React from 'react';
 import Header from './Header.js';
 
@@ -673,4 +675,141 @@ Aparte, hemos creado una funcion `handleSubmit` para tomar los valores del Input
   };
 ```
 
-La linea `e.preventDefault()` se utiliza para evitar que el navegador intente llamar a un servidor al momento de darle submit al formulario. La siguiente linea `// eslint-disable-next-line` es para decirle a ESLint que ignore la line adel console.log(e.target.username.value), debido a que No es permitido console.log al momento de hacer deploy a produccion, claro, esto es solamente con motivos de prueba, para asegurarnos que recibimos los datos que se ingresan en el Input.
+La linea `e.preventDefault()` se utiliza para evitar que el navegador intente llamar a un servidor al momento de darle submit al formulario. La siguiente linea `// eslint-disable-next-line` es para decirle a ESLint que ignore la linea del console.log(e.target.username.value), debido a que No es permitido console.log al momento de hacer deploy a produccion, claro, esto es solamente con motivos de prueba, para asegurarnos que recibimos los datos que se ingresan en el Input.
+
+### <a name="props">Props</a>
+
+Props en React son variables que se pasan de componentes padres a hijos, pero el hijo no puede modificar los props que recibe. Esta simple restriccion nos ayuda muchisimo en el futuro cuando un bug aparece, ya sabrias que el hijo no modifico la variable porque simplemente no puede.
+
+Lo siguiente que haremos sera modificar la ruta principal de nuestro proyecto dentro de App.js.
+
+```
+...
+<BrowserRouter>
+  <Route exact path='/' render={({ history }) => (
+    <Search
+      onSubmitUsername={(username) => {
+        history.push(`/${username}/projects`)
+      }}
+    />
+  )} />
+</BrowserRouter>
+...
+```
+
+Hemos reemplazado la Prop `component` por `render`, esto nos permite ampliar el llamado del componente hijo Search; pasandole una funcion como Props (onSubmitUsername). `onSubmitUsername` es una funcion que creamos como Prop para el componente Search, dicha funcion recibe un parametro; username. Todavia no tenemos el valor de dicho parametro, el valor de `username` sera asignado por el componente hijo Search.
+
+`history`, es un parametro que BrowserRoute nos proporciona, y como podran observar es un arreglo al cual le podemos especificar a que ruta deseamos que nos redireccione, en este caso la ruta es `history.push(`/${username}/projects`)`, a pesar de que todavia No hemos definido dicha ruta. Ademas, podran notar que usamos "backticks" para definir la ruta a llamar, esto nos permite usar una variable dentro de una cadena de string, es parte de las funcionalidades de ES6. En ES5 seria diferente; `history.push('/' + username + '/projects')`.
+
+Regresando al componente Search.js, vamos a recibir el Prop `onSubmitUsername` que el componente padre App.js le envia. Los Props se reciben como parametros en componentes funcionales sin estado y son usados mediante el objeto contextual de ES6 `this` para componentes que manejan sus propios estados (class components).
+
+```
+// ./src/Search.js
+import React from 'react';
+import Header from './Header.js';
+
+const Search = ({ onSubmitUsername }) => {
+  const handleSubmit = e => {
+    e.preventDefault();
+    const username = e.target.username.value;
+    if (onSubmitUsername && username) {
+      onSubmitUsername(username);
+    }
+  };
+
+  return (
+    <div>
+      <Header />
+      <div className="container">
+        <section className="search six offset-by-three columns">
+          <form onSubmit={handleSubmit}>
+            <button type="submit">
+              <span className="fa fa-check-circle fa-3x" />
+            </button>
+            <input
+              className="u-full-width"
+              type="text"
+              name="username"
+              placeholder="Enter Github Username"
+            />
+          </form>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default Search;
+```
+
+Hemos declarado un parametro para el componente Search.js `{ onSubmitUsername }`, dicho parametro proviene del componente padre, y ademas es una funcion, esto nos da la pauta que podemos enviar simples variables y/o funciones como parametros.
+
+```
+const handleSubmit = e => {
+  e.preventDefault();
+  const username = e.target.username.value;
+  if (onSubmitUsername && username) {
+    onSubmitUsername(username);
+  }
+};
+```
+
+Ademas, hemos modificado la funcion handleSubmit creando una constante para alojar el valor del Input del formulario, aparte hacemos una validacion para poder llamar la funcion onSubmitUsername que recibimos como Prop y pasarle el parametro que dicha funcion necesita, en este ejemplo, estamos recibiendo Props de padre a hijo y ademas estamos enviando parametros de hijo a padre (username), comunicacion de dos vias.
+
+Ahora bien, es probable que ESLint nos de problemas; `'onSubmitUsername' is missing in props validation`, para solucionar dicho asunto usaremos una libreria llamada `prop-types`
+
+### <a name="prop-types">PropTypes</a>
+
+React tiene una funcionalidad que nos permite establecer propTypes los cuales se validad en tiempo de ejecucion. Estos terminan siendo bastante utiles para debugear, debido a que React sabe que tipos de Props deberia de estar recibiendo el componente. Asi que vamos a configurarlo.
+
+```
+npm install -S prop-types
+```
+
+Importamos PropTypes en la linea `import PropTypes from 'prop-types';` luego definimos las props que Search recibe
+
+```
+import React from 'react';
+import PropTypes from 'prop-types'; // Importamos PropTypes
+import Header from './Header.js';
+
+const Search = ({ onSubmitUsername }) => {
+  const handleSubmit = e => {
+    e.preventDefault();
+    const username = e.target.username.value;
+    if (onSubmitUsername && username) {
+      onSubmitUsername(username);
+    }
+  };
+
+  return (
+    <div>
+      <Header />
+      <div className="container">
+        <section className="search six offset-by-three columns">
+          <form onSubmit={handleSubmit}>
+            <button type="submit">
+              <span className="fa fa-check-circle fa-3x" />
+            </button>
+            <input
+              className="u-full-width"
+              type="text"
+              name="username"
+              placeholder="Enter Github Username"
+            />
+          </form>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+// Aca definimos las propTypes del componente Search
+Search.propTypes = {
+  onSubmitUsername: PropTypes.func
+};
+
+export default Search;
+```
+
+En este caso definimos los props del componente Search, seguido usamos la property propTypes el cual es un objeto que nos permite definir las props y el tipo de prop que es, en este caso es una funcion (`PropTypes.func`).

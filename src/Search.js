@@ -1,11 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Header from './Header.js';
 
-const Search = () => {
+const Search = ({ onSubmitUsername }) => {
   const handleSubmit = e => {
     e.preventDefault();
-    // eslint-disable-next-line
-    console.log(e.target.username.value);
+    const username = e.target.username.value;
+    if (onSubmitUsername && username) {
+      onSubmitUsername(username);
+    }
   };
 
   return (
@@ -28,6 +31,10 @@ const Search = () => {
       </div>
     </div>
   );
+};
+
+Search.propTypes = {
+  onSubmitUsername: PropTypes.func
 };
 
 export default Search;

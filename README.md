@@ -7,5 +7,6 @@ El objetivo de este curso es que sirve como introduccion al desarrollo FrontEnd 
 - Webpack
 - create-react-app
 - ES6
+- React Router
 
 El link para seguir la guia es el siguiente [https://crisecheverria.github.io/curso-react-unitec/](https://crisecheverria.github.io/curso-react-unitec/)

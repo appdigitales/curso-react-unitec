@@ -6,7 +6,17 @@ import { BrowserRouter, Route } from 'react-router-dom';
 const App = () => {
   return (
     <BrowserRouter>
-      <Route exact path="/" component={Search} />
+      <Route
+        exact
+        path="/"
+        render={({ history }) => (
+          <Search
+            onSubmitUsername={username => {
+              history.push(`/${username}/projects`);
+            }}
+          />
+        )}
+      />
     </BrowserRouter>
   );
 };
