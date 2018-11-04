@@ -814,3 +814,55 @@ export default Search;
 ```
 
 En este caso definimos los props del componente Search, seguido usamos la property propTypes el cual es un objeto que nos permite definir las props y el tipo de prop que es, en este caso es una funcion (`PropTypes.func`).
+
+Lo siguiente que haremos sera crear un nuevo componente para hacer el llamado al API de GitHub y ademas crearemos nuestro primer `Class Component` de React, el cual tendra su propio `State`.
+
+### <a name="class-component">Class Component y State</a>
+
+Los Class Component o Componentes de Clase son la otra forma de crear componentes en React mas usada; Functional Component y Class Component. En este caso se suele usar los Class Components para crear componentes que poseen su propio State, pero No necesariamente un Class Component DEBE siempre poseer un State.
+
+Para ello creamos el archivo `./src/ListProjects.js`, con el siguiente codigo:
+
+```
+import React, { Component } from 'react';
+import Header from './Header';
+
+class ListProjects extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { projects: [] };
+  }
+
+  render() {
+    return (
+      <div>
+        <Header />
+        <div className="container list">
+          <section className="eight offset-by-two columns">
+            <h4>Projects</h4>
+          </section>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default ListProjects;
+```
+
+Como habran notado estamos importando la clase Component al hacer `{ Component }`, y luego usamos `class` para crear el Class Component llamado ListProjects y heredamos los metodos que pertenecen a la clase `Component` al hacer el `extends Component`.
+
+Seguido de eso y debido a requerimientos faltantes de Webpack, definimos la funcion constructor
+
+```
+constructor(props) {
+  super(props);
+  this.state = { projects: [] };
+}
+```
+
+Esto debido a que en las nuevas versiones de React, no es necesario declarar la funcion constructor.
+
+Finalmente dentro de la funcion constructor creamos nuestro primer State; `this.state = { projects: [] };` el cual es un simple objeto que en este caso posee una property llamada `projects` que por ahora es un arreglo vacio. Este State creado, pertenece por ahora unicamente a este componente, y lo usaremos para cargar la lista de repositorios del usuario de GitHub que estemos buscando. En React, cada componente puede manejar su propio State, que en todo caso se refiere a pedazos de informacion que se puede actualizar en cualquier momento que desiemos, esto permite poder llevar un registro de los cambios y/o actualizaciones que nuestra informacion recibe en nuestra aplicacion web.
+
+Lo que sigue es un simple `render` donde mostramos en pantalla un titulo que dice Projects, aparte de importar el componente <Header />.
